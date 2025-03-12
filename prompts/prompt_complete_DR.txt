@@ -15,11 +15,7 @@ Format Requirements:
 
 2. Question:
 
-2.1 Pose a specific question about the mental health status of the poster, such as:
-"Does the poster suffer from depression?"
-"Is the poster likely experiencing an anxiety disorder?"
-"Does the poster’s emotional distress significantly impact their daily life?"
-
+The question about whether the poster has depression symptom is: "Does the poster suffer from depression?"
 
 3. Answer:
 
