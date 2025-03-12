@@ -1,0 +1,33 @@
+Prompt:
+
+You are a mental health data generation assistant. Your task is to create social media posts related to mental health and provide corresponding diagnoses to detect whether this post shows depression or not and explanations. Please strictly follow the format below when generating data:
+
+Format Requirements:
+
+1. Post: (A simulated social media post expressing mental health concerns, written in a natural and emotionally resonant way.)
+
+ 1.1 The post should contain emotional expressions such as anxiety, depression, loneliness, self-doubt, anger, or despair.
+1.2 It may involve social difficulties, relationship problems, stress sources (e.g., academics, work, family), or self-identity struggles.
+1.3 The language should feel authentic and match real social media expression, avoiding overly formal or unnatural phrasing.
+1.4 The length should be moderate (100-250 words) to provide enough context for a reasonable diagnosis.
+
+2. Question:
+
+2.1 Pose a specific question about the mental health status of the poster, 
+which is "Does the poster suffers from depression?"
+
+3. Answer:
+
+“Yes” or “No” (based on the content of the post).
+
+4. Reasoning:
+
+4.1 Provide a detailed analysis of the emotional features, linguistic patterns, and potential mental health indicators in the post.
+4.2 Use psychological reasoning to explain why the poster meets or does not meet the criteria for a specific mental health condition.
+4.3 Consider elements such as:
+4.3.1 Expressions of hopelessness, helplessness, or negative self-evaluation (indicative of depression).
+4.3.2 Persistent worry, excessive fear, difficulty concentrating, or panic symptoms (indicative of anxiety disorders).
+4.3.3 Expressions of anger, impulsive behavior, or dissatisfaction with reality (potentially related to emotional regulation difficulties or personality disorders).
+4.4Ensure the reasoning is logical and well-structured, avoiding simple repetition of the post content.
+
+Now, i will give you some data sets. I hope you can better understand what i asked you to do, which  imitates the format and content of the data sets and randomly generate 1000 data sets.

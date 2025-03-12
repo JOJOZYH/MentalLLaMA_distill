@@ -20,7 +20,7 @@
 import pandas as pd
 
 # 读取 CSV 文件
-df = pd.read_csv("DR.csv")
+df = pd.read_csv("./data/released_data_mentalllama/test_data/test_instruction/DR.csv")
 
 # 随机抽取 100 行（如果数据不足 100 行，则抽取所有数据）
 sampled_df = df.sample(n=min(100, len(df)), random_state=42)  # `random_state` 保证结果可复现
