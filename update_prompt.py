@@ -52,4 +52,4 @@ def update_prompt_with_csv(prompt_path, csv_valid_path, csv_train_path, n):
     with open(prompt_path, 'w', encoding='utf-8') as f:
         f.write(new_content)
 
-    print(f"Updated '{prompt_path}' with {len(sample_combined)} new example rows.")
+    print(f"Refreshed '{prompt_path}' with {len(sample_combined)} new example rows.")
