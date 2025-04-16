@@ -135,7 +135,7 @@ def extract_response_reasoning_plain_text(result_text):
 
     return matches 
 
-def generate_pipeline(builder, instruction, output_file="generated_dataset.csv", num_batches=1):
+def generate_pipeline(builder, instruction, output_file="", failed_output_file = "", num_batches=1):
     """
     Run the complete generation pipeline for multiple batches of questions.
     
@@ -145,6 +145,9 @@ def generate_pipeline(builder, instruction, output_file="generated_dataset.csv",
         output_file (str, optional): Path to save the output CSV. Defaults to "generated_dataset.csv".
         num_batches (int, optional): Number of batches to generate. Defaults to 1.
     """
+    if output_file == "" or failed_output_file == "":
+        raise ValueError("Output file paths cannot be empty.")
+    
     rows = []
     failed_rows = []
     for i in range(num_batches):
