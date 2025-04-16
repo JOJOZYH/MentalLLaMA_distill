@@ -17,14 +17,14 @@ class PromptBuilder:
     model inference.
     """
     
-    def __init__(self, expert_dfs, train_df, num_examples_per_dataset=2):
+    def __init__(self, expert_dfs, train_df, num_examples_per_dataset=10):
         """
         Initialize the PromptBuilder with expert examples and training data.
         
         Args:
             expert_dfs (list): A list of pandas DataFrames containing expert examples
             train_df (DataFrame): A pandas DataFrame containing training questions
-            num_examples_per_dataset (int, optional): Number of examples to sample from each expert dataset. Defaults to 2.
+            num_examples_per_dataset (int, optional): Number of examples to sample from each expert dataset. Defaults to 10.
         """
         self.expert_dfs = expert_dfs
         self.train_df = train_df
@@ -135,17 +135,18 @@ def extract_response_reasoning_plain_text(result_text):
 
     return matches 
 
-def generate_pipeline(builder, instruction, output_file="", failed_output_file = "", num_batches=1):
+def generate_pipeline(builder, instruction, output_file=None, failed_output_file=None, num_batches=1):
     """
     Run the complete generation pipeline for multiple batches of questions.
     
     Args:
         builder (PromptBuilder): The prompt builder to construct prompts
         instruction (str): Instruction for the AI model
-        output_file (str, optional): Path to save the output CSV. Defaults to "generated_dataset.csv".
+        output_file (str, optional): Path to save the output CSV.
+        failed_output_file (str, optional): Path to save failed queries.
         num_batches (int, optional): Number of batches to generate. Defaults to 1.
     """
-    if output_file == "" or failed_output_file == "":
+    if not output_file or not failed_output_file:
         raise ValueError("Output file paths cannot be empty.")
     
     rows = []
@@ -203,7 +204,7 @@ def main():
     # DR 
     instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
     shows symptoms of depression. Consider the emotions expressed from post to explain the reasoning of the label step by step.
-    Here are twenty examples:'''
+    Here are some examples:'''
 
     datasets = [
         df_DR,
