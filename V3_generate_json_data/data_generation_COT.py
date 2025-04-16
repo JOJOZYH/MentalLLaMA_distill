@@ -225,10 +225,28 @@ def main():
 
 def main(df_expert_examples, df, client, num_batches=1, dataset_name='', output_file="generated_dataset.csv", failed_output_file="failed_generate.csv"):
     """
-    Main function to run the data generation pipeline.
-    
-    Loads datasets, initializes the PromptBuilder, and starts the generation process
-    with the appropriate instruction.
+    Executes the data generation pipeline for mental health-related datasets.
+    This function initializes the necessary components, such as the PromptBuilder, 
+    and processes the input data to generate outputs based on specific dataset instructions. 
+    It supports multiple datasets, each with its own unique instruction set.
+    Args:
+        df_expert_examples (pd.DataFrame): A DataFrame containing expert examples for prompt generation.
+        df (pd.DataFrame): The main dataset to process.
+        client (object): The client object used for API calls or external interactions.
+        num_batches (int, optional): The number of batches to process. Defaults to 1.
+        dataset_name (str, optional): The name of the dataset to process. Must be one of 
+            ["DR", "dreaddit", "Irf", "MultiWD", "SAD"]. Defaults to an empty string.
+        output_file (str, optional): The file path to save the generated dataset. Defaults to "generated_dataset.csv".
+        failed_output_file (str, optional): The file path to save failed generation attempts. Defaults to "failed_generate.csv".
+    Raises:
+        ValueError: If the dataset_name is empty or invalid.
+    Notes:
+        - Each dataset has a specific instruction template that guides the generation process.
+        - The function uses the PromptBuilder class to construct prompts and the generate_pipeline 
+          function to execute the generation process.
+    Example:
+        main(df_expert_examples, df, client, num_batches=5, dataset_name="DR", 
+             output_file="output.csv", failed_output_file="failed.csv")
     """
     if dataset_name == '':
         raise ValueError("Dataset name cannot be empty.")
