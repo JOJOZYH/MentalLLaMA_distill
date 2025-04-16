@@ -189,17 +189,7 @@ def main():
     Loads datasets, initializes the PromptBuilder, and starts the generation process
     with the appropriate instruction.
     """
-    # expert examples
-    df_DR = pd.read_csv('../data/expert_data/DR.csv')
-    df_dreaddit = pd.read_csv('../data/expert_data/dreaddit.csv')
-    df_Irf = pd.read_csv('../data/expert_data/Irf.csv')
-    df_MultiWD = pd.read_csv('../data/expert_data/MultiWD.csv')
-    df_SAD = pd.read_csv('../data/expert_data/SAD.csv')
-
-    DR_train = pd.read_csv('../data/released_data_mentalllama/train_data/instruction_data/DR/train.csv')
-
-   
-
+  
     # instructions
     # DR 
     DR_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
@@ -213,7 +203,7 @@ def main():
     risk factors of mental disturbance in the post. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
     # MultiWD
     MultiWD_instruction = ''': You will be presented with a post and an assigned label to identify whether the wellness dimension of spiritual exists in the post, according to
-    Dunn’s model of psychological wellness. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
+    Dunn's model of psychological wellness. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
     # SAD
     SAD_instruction = ''': You will be presented a post that shows stress, and an assigned label to show the cause of the stress from from the following stress causes
     list: School, Financial problem, Family issues, Social relationships, Work, Health issues, Emotional turmoil, Everyday decision making,
