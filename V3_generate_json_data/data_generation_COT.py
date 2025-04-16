@@ -118,7 +118,6 @@ def generate_mental_health_case(builder, instruction, client):
     except Exception as e:
         print(f"Generation failed: {str(e)}")
         return None, None
-    
 
 def extract_response_reasoning_plain_text(result_text):
     """
@@ -182,7 +181,6 @@ def generate_pipeline(builder, instruction, output_file=None, failed_output_file
         failed_df.to_csv(failed_output_file, index=False)
         print(f"Saved {len(failed_df)} failed queries to {failed_output_file}")
 
-
 def main():
     """
     Main function to run the data generation pipeline.
@@ -221,7 +219,6 @@ def main():
     client = OpenAI()
     builder = PromptBuilder()
     generate_pipeline(builder, DR_instruction, output_file="", failed_output_file="",client=client, num_batches=1)
-
 
 def main(df_expert_examples, df, client, num_batches=1, dataset_name='', output_file="generated_dataset.csv", failed_output_file="failed_generate.csv"):
     """
@@ -281,7 +278,6 @@ def main(df_expert_examples, df, client, num_batches=1, dataset_name='', output_
 
     builder = PromptBuilder(df_expert_examples, df)
     generate_pipeline(builder, instructions[dataset_name], output_file=output_file, failed_output_file=failed_output_file,client=client, num_batches=num_batches)
-
 
 if __name__ == "__main__":
     main()
