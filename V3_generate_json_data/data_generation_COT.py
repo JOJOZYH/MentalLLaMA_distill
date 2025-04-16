@@ -6,8 +6,6 @@ import pandas as pd
 import random
 import re
 
-# client = OpenAI(api_key="sk-3027dc386bba4840abd9a5b16fcab47e", base_url="https://api.deepseek.com")
-
 class PromptBuilder:
     """
     A class for building prompts by combining expert examples and training questions.
@@ -82,7 +80,7 @@ class PromptBuilder:
         for _, row in examples_df.iterrows():
             example_json = {
                 "query": row['query'],
-                "answer": row['gpt-3.5-turbo']
+                "response": row['gpt-3.5-turbo']
             }
             prompt += json.dumps(example_json, ensure_ascii=False) + "\n"
 
@@ -135,7 +133,7 @@ def extract_response_reasoning_plain_text(result_text):
 
     return matches 
 
-def generate_pipeline(builder, instruction, output_file=None, failed_output_file=None, num_batches=1):
+def generate_pipeline(builder, instruction, output_file=None, failed_output_file=None, client=None, num_batches=1):
     """
     Run the complete generation pipeline for multiple batches of questions.
     
@@ -148,12 +146,14 @@ def generate_pipeline(builder, instruction, output_file=None, failed_output_file
     """
     if not output_file or not failed_output_file:
         raise ValueError("Output file paths cannot be empty.")
+    if not client:
+        raise ValueError("API client cannot be None.")
     
     rows = []
     failed_rows = []
     for i in range(num_batches):
         print(f"Generating batch {i+1}/{num_batches}...")
-        result_text, queries = generate_mental_health_case(builder, instruction)
+        result_text, queries = generate_mental_health_case(builder, instruction, client)
         if not queries:
             print("Reached end of training dataset. Stopping.")
             break
