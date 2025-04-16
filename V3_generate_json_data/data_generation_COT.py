@@ -36,12 +36,8 @@ class PromptBuilder:
         Returns:
             DataFrame: A combined DataFrame containing sampled examples from all expert datasets
         """
-        sampled_dfs = []
-        for df in self.expert_dfs:
-            sampled = df.sample(n=self.num_examples_per_dataset, random_state=random.randint(0, 10000))
-            sampled_dfs.append(sampled)
-        combined_df = pd.concat(sampled_dfs, ignore_index=True)
-        return combined_df
+        sampled = self.expert_dfs.sample(n=self.num_examples_per_dataset, random_state=random.randint(0, 10000))
+        return sampled 
     
     def get_next_training_questions(self, n=5):
         """
@@ -56,8 +52,17 @@ class PromptBuilder:
         if self.train_pointer >= len(self.train_df):
             return []
         end = min(self.train_pointer + n, len(self.train_df))
-        questions = self.train_df.iloc[self.train_pointer:end]['query'].tolist()
+        batch = self.train_df.iloc[self.train_pointer:end]
         self.train_pointer = end 
+        questions = []
+        for _, row in batch.iterrows():
+            query = row['query']
+            full_response = row['gpt-3.5-turbo']
+            label_match = re.match(r'^(Yes|No)', full_response.strip(), re.IGNORECASE)
+            response_label = label_match.group(1) if label_match else "Unknown"
+            reasoning_split = re.split(r'\s*Reasoning\s*:\s*', full_response, maxsplit=1, flags=re.IGNORECASE)
+            response_before_reasoning = reasoning_split[0].strip() if reasoning_split else full_response
+            questions.append((query, response_label, response_before_reasoning))
         return questions
 
     def build_prompt(self, instruction):
@@ -78,15 +83,12 @@ class PromptBuilder:
         prompt += "### Expert-written examples:\n"
 
         for _, row in examples_df.iterrows():
-            example_json = {
-                "query": row['query'],
-                "response": row['gpt-3.5-turbo']
-            }
-            prompt += json.dumps(example_json, ensure_ascii=False) + "\n"
+            prompt += f"Query: {row['query']}\n"
+            prompt += f"Response: {row['gpt-3.5-turbo']}\n\n"
 
-        prompt += "\n### Now answer the following queries in the following format: {\"response\": \"...\", \"reasoning\": \"...\"}\n"
-        for i, q in enumerate(target_questions, 1):
-            prompt += f"Q{i}: {q}\n"
+        prompt += "\n### Now provide the reasoning for the following queries and responses in the format: {\"reasoning\": \"...\"}\n"
+        for i, (query, response_label, response_before_reasoning) in enumerate(target_questions, 1):
+            prompt += f"Q{i}: {query}\nResponse: {response_label}\n"
 
         return prompt, target_questions
     
@@ -128,22 +130,12 @@ def extract_response_reasoning_plain_text(result_text):
     Returns:
         list: A list of (response, reasoning) tuples extracted from the text
     """
-    pattern = r'response":\s*"([^"]+)"\s*,\s*"reasoning":\s*"([^"]+)"'
+    pattern = r'\s*"reasoning":\s*"([^"]+)"'
     matches = re.findall(pattern, result_text)
 
     return matches 
 
 def generate_pipeline(builder, instruction, output_file=None, failed_output_file=None, client=None, num_batches=1):
-    """
-    Run the complete generation pipeline for multiple batches of questions.
-    
-    Args:
-        builder (PromptBuilder): The prompt builder to construct prompts
-        instruction (str): Instruction for the AI model
-        output_file (str, optional): Path to save the output CSV.
-        failed_output_file (str, optional): Path to save failed queries.
-        num_batches (int, optional): Number of batches to generate. Defaults to 1.
-    """
     if not output_file or not failed_output_file:
         raise ValueError("Output file paths cannot be empty.")
     if not client:
@@ -151,36 +143,44 @@ def generate_pipeline(builder, instruction, output_file=None, failed_output_file
     
     rows = []
     failed_rows = []
+
     for i in range(num_batches):
         print(f"Generating batch {i+1}/{num_batches}...")
         result_text, queries = generate_mental_health_case(builder, instruction, client)
+
         if not queries:
             print("Reached end of training dataset. Stopping.")
             break
+
         if result_text and queries:
-            pairs = extract_response_reasoning_plain_text(result_text)
-            if len(pairs) != len(queries):
-                print(f"Warning: Mismatch between number of queries ({len(queries)}) and responses ({len(pairs)})")
-                failed_rows.extend(queries)
+            reasonings = extract_response_reasoning_plain_text(result_text)
+
+            if len(reasonings) != len(queries):
+                print(f"Warning: Mismatch between number of queries ({len(queries)}) and responses ({len(reasonings)})")
+                for q in queries:
+                    failed_rows.append(q[0])
                 continue
-            for query, (response, reasoning) in zip(queries, pairs):
+
+            for (query, response_label, response_before_reasoning), reasoning in zip(queries, reasonings):
+                combined = f"{response_before_reasoning} Reasoning: {reasoning}"
                 rows.append({
                     "query": query,
-                    "response": response,
-                    "reasoning": reasoning
+                    "full_answer": combined
                 })
 
         else:
             print("Skipping this batch due to API or parsing error.")
 
+    # Save successful cases
     df = pd.DataFrame(rows)
     df.to_csv(output_file, index=False)
-    print(f"\nSaved {len(df)} rows to {output_file}")
+    print(f"Saved {len(df)} rows to {output_file}")
+
+    # Save failed cases
     if failed_rows:
         failed_df = pd.DataFrame(failed_rows, columns=["query"])
-        failed_df.to_csv("failed_generate.csv", index=False)
-        print(f"Saved {len(failed_df)} failed queries to failed_generate.csv")
-
+        failed_df.to_csv(failed_output_file, index=False)
+        print(f"Saved {len(failed_df)} failed queries to {failed_output_file}")
 
 def main():
     """
@@ -202,19 +202,26 @@ def main():
 
     # instructions
     # DR 
-    instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
+    DR_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
     shows symptoms of depression. Consider the emotions expressed from post to explain the reasoning of the label step by step.
     Here are some examples:'''
+    # dreaddit
+    dreaddit_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster suffers from stress. Consider the emotions expressed from this post
+    to explain the reasoning of the label step by step. Here are some examples:'''
+    # Irf
+    Irf_instruction = ''': You will be presented with a post an assigned label to identify whether the post shows risk of perceived burdensomeness, considering the interpersonal
+    risk factors of mental disturbance in the post. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
+    # MultiWD
+    MultiWD_instruction = ''': You will be presented with a post and an assigned label to identify whether the wellness dimension of spiritual exists in the post, according to
+    Dunn’s model of psychological wellness. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
+    # SAD
+    SAD_instruction = ''': You will be presented a post that shows stress, and an assigned label to show the cause of the stress from from the following stress causes
+    list: School, Financial problem, Family issues, Social relationships, Work, Health issues, Emotional turmoil, Everyday decision making,
+    Other causes. You must explain the reasoning of the assigned label step by step. Here are some examples:'''
 
-    datasets = [
-        df_DR,
-        df_dreaddit,
-        df_Irf,
-        df_MultiWD,
-        df_SAD
-    ]
-    builder = PromptBuilder(datasets, DR_train)
-    generate_pipeline(builder, instruction, output_file="generated_dataset.csv", num_batches=10)
 
+    builder = PromptBuilder(df_DR, DR_train)
+    myclient = OpenAI(api_key="", base_url="")
+    generate_pipeline(builder, DR_instruction, output_file="generated_dataset.csv", failed_output_file = "failed_generate.csv",client = myclient, num_batches=1)
 if __name__ == "__main__":
     main()
