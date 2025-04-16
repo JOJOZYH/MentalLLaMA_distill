@@ -182,6 +182,7 @@ def generate_pipeline(builder, instruction, output_file=None, failed_output_file
         failed_df.to_csv(failed_output_file, index=False)
         print(f"Saved {len(failed_df)} failed queries to {failed_output_file}")
 
+
 def main():
     """
     Main function to run the data generation pipeline.
@@ -189,7 +190,9 @@ def main():
     Loads datasets, initializes the PromptBuilder, and starts the generation process
     with the appropriate instruction.
     """
-  
+    if dataset_name == '':
+        raise ValueError("Dataset name cannot be empty.")
+    
     # instructions
     # DR 
     DR_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
@@ -209,9 +212,60 @@ def main():
     list: School, Financial problem, Family issues, Social relationships, Work, Health issues, Emotional turmoil, Everyday decision making,
     Other causes. You must explain the reasoning of the assigned label step by step. Here are some examples:'''
 
+    instructions = {
+    "DR": DR_instruction,
+    "dreaddit": dreaddit_instruction,
+    "Irf": Irf_instruction,
+    "MultiWD": MultiWD_instruction,
+    "SAD": SAD_instruction
+    }
 
-    builder = PromptBuilder(df_DR, DR_train)
-    myclient = OpenAI(api_key="", base_url="")
-    generate_pipeline(builder, DR_instruction, output_file="generated_dataset.csv", failed_output_file = "failed_generate.csv",client = myclient, num_batches=1)
+
+    builder = PromptBuilder()
+    generate_pipeline(builder, instructions[dataset_name], output_file=output_file, failed_output_file=failed_output_file,client=client, num_batches=num_batches)
+
+
+def main(df_expert_examples, df, client, num_batches=1, dataset_name='', output_file="generated_dataset.csv", failed_output_file="failed_generate.csv"):
+    """
+    Main function to run the data generation pipeline.
+    
+    Loads datasets, initializes the PromptBuilder, and starts the generation process
+    with the appropriate instruction.
+    """
+    if dataset_name == '':
+        raise ValueError("Dataset name cannot be empty.")
+    
+    # instructions
+    # DR 
+    DR_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster
+    shows symptoms of depression. Consider the emotions expressed from post to explain the reasoning of the label step by step.
+    Here are some examples:'''
+    # dreaddit
+    dreaddit_instruction = ''': You will be presented with a post and an assigned label to identify whether the poster suffers from stress. Consider the emotions expressed from this post
+    to explain the reasoning of the label step by step. Here are some examples:'''
+    # Irf
+    Irf_instruction = ''': You will be presented with a post an assigned label to identify whether the post shows risk of perceived burdensomeness, considering the interpersonal
+    risk factors of mental disturbance in the post. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
+    # MultiWD
+    MultiWD_instruction = ''': You will be presented with a post and an assigned label to identify whether the wellness dimension of spiritual exists in the post, according to
+    Dunn's model of psychological wellness. You must consider these information to explain the reasoning of the label step by step. Here are some examples:'''
+    # SAD
+    SAD_instruction = ''': You will be presented a post that shows stress, and an assigned label to show the cause of the stress from from the following stress causes
+    list: School, Financial problem, Family issues, Social relationships, Work, Health issues, Emotional turmoil, Everyday decision making,
+    Other causes. You must explain the reasoning of the assigned label step by step. Here are some examples:'''
+
+    instructions = {
+    "DR": DR_instruction,
+    "dreaddit": dreaddit_instruction,
+    "Irf": Irf_instruction,
+    "MultiWD": MultiWD_instruction,
+    "SAD": SAD_instruction
+    }
+
+
+    builder = PromptBuilder(df_expert_examples, df)
+    generate_pipeline(builder, instructions[dataset_name], output_file=output_file, failed_output_file=failed_output_file,client=client, num_batches=num_batches)
+
+
 if __name__ == "__main__":
     main()
