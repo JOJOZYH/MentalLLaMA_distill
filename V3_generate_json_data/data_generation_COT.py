@@ -190,8 +190,6 @@ def main():
     Loads datasets, initializes the PromptBuilder, and starts the generation process
     with the appropriate instruction.
     """
-    if dataset_name == '':
-        raise ValueError("Dataset name cannot be empty.")
     
     # instructions
     # DR 
@@ -220,9 +218,9 @@ def main():
     "SAD": SAD_instruction
     }
 
-
+    client = OpenAI()
     builder = PromptBuilder()
-    generate_pipeline(builder, instructions[dataset_name], output_file=output_file, failed_output_file=failed_output_file,client=client, num_batches=num_batches)
+    generate_pipeline(builder, DR_instruction, output_file="", failed_output_file="",client=client, num_batches=1)
 
 
 def main(df_expert_examples, df, client, num_batches=1, dataset_name='', output_file="generated_dataset.csv", failed_output_file="failed_generate.csv"):
