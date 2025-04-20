@@ -1,0 +1,10 @@
+{"time":"2025-04-20T12:52:56.6819822-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"c:\\Users\\jojo1\\OneDrive\\Documents\\GitHub\\MentalLLaMA_distill\\wandb\\run-20250420_125256-uy1d32hk\\logs\\debug-core.log"}
+{"time":"2025-04-20T12:52:57.06108-04:00","level":"INFO","msg":"created new stream","id":"uy1d32hk"}
+{"time":"2025-04-20T12:52:57.06108-04:00","level":"INFO","msg":"handler: started","stream_id":"uy1d32hk"}
+{"time":"2025-04-20T12:52:57.06108-04:00","level":"INFO","msg":"sender: started","stream_id":"uy1d32hk"}
+{"time":"2025-04-20T12:52:57.06108-04:00","level":"INFO","msg":"stream: started","id":"uy1d32hk"}
+{"time":"2025-04-20T12:52:57.06108-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"uy1d32hk"}
+{"time":"2025-04-20T12:52:57.2379811-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-20T17:16:43.6412088-04:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2025-04-20T17:16:43.6476433-04:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2025-04-20T17:16:43.846232-04:00","level":"INFO","msg":"Pausing system monitor"}

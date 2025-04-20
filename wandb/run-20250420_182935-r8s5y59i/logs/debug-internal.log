@@ -1,0 +1,7 @@
+{"time":"2025-04-20T18:29:35.1999089-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"c:\\Users\\jojo1\\OneDrive\\Documents\\GitHub\\MentalLLaMA_distill\\wandb\\run-20250420_182935-r8s5y59i\\logs\\debug-core.log"}
+{"time":"2025-04-20T18:29:35.5888412-04:00","level":"INFO","msg":"created new stream","id":"r8s5y59i"}
+{"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"handler: started","stream_id":"r8s5y59i"}
+{"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"r8s5y59i"}
+{"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"stream: started","id":"r8s5y59i"}
+{"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"sender: started","stream_id":"r8s5y59i"}
+{"time":"2025-04-20T18:29:35.7271276-04:00","level":"INFO","msg":"Starting system monitor"}
