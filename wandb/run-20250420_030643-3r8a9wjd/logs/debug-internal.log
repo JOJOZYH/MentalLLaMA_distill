@@ -1,0 +1,20 @@
+{"time":"2025-04-20T03:06:43.9442156-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"c:\\Users\\jojo1\\OneDrive\\Documents\\GitHub\\MentalLLaMA_distill\\wandb\\run-20250420_030643-3r8a9wjd\\logs\\debug-core.log"}
+{"time":"2025-04-20T03:06:44.2019964-04:00","level":"INFO","msg":"created new stream","id":"3r8a9wjd"}
+{"time":"2025-04-20T03:06:44.2019964-04:00","level":"INFO","msg":"stream: started","id":"3r8a9wjd"}
+{"time":"2025-04-20T03:06:44.2019964-04:00","level":"INFO","msg":"sender: started","stream_id":"3r8a9wjd"}
+{"time":"2025-04-20T03:06:44.2019964-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"3r8a9wjd"}
+{"time":"2025-04-20T03:06:44.2019964-04:00","level":"INFO","msg":"handler: started","stream_id":"3r8a9wjd"}
+{"time":"2025-04-20T03:06:44.3186751-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-20T04:46:59.7785588-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/jojo1608940233-n-a/huggingface/3r8a9wjd/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T04:47:02.1525644-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/jojo1608940233-n-a/huggingface/3r8a9wjd/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T04:47:06.4578678-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/jojo1608940233-n-a/huggingface/3r8a9wjd/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T04:47:16.1726943-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/jojo1608940233-n-a/huggingface/3r8a9wjd/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T04:47:21.7969176-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.1.78:58836->35.186.228.49:443: wsarecv: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond."}
+{"time":"2025-04-20T04:47:24.2024564-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T07:07:54.5027851-04:00","level":"WARN","msg":"sender: taking a long time","seconds":8451.9040998,"work":"WorkRecord(*service_go_proto.Request_StopStatus); Control(local:true mailbox_slot:\"n355x1cd27e9\" connection_id:\"127.0.0.1:56827\")"}
+{"time":"2025-04-20T07:07:54.5088616-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T07:07:54.5088616-04:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/jojo1608940233-n-a/huggingface/3r8a9wjd/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-04-20T07:08:02.8451516-04:00","level":"INFO","msg":"sender: succeeded after taking longer than expected","seconds":8460.2464663,"work":"WorkRecord(*service_go_proto.Request_StopStatus); Control(local:true mailbox_slot:\"n355x1cd27e9\" connection_id:\"127.0.0.1:56827\")"}
+{"time":"2025-04-20T09:52:19.6023868-04:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2025-04-20T09:52:19.6093246-04:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2025-04-20T09:52:19.7810427-04:00","level":"INFO","msg":"Pausing system monitor"}
