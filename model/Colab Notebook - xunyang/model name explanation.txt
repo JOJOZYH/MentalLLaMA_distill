@@ -12,4 +12,9 @@ r=32,alpha=64, dropout = 0.1
 
 3. fine_tuned_lora_mental_llama_loradropout_0_1_v2
 
-r=32,alpha=64, dropout = 0.1, eval strategy = step
+r=32,alpha=64, dropout = 0.1, eval strategy = step, learning rate = 2e-4
+
+
+4. fine_tuned_lora_mental_llama_loradropout_0_1_v3
+
+r=32,alpha=64, dropout = 0.1, eval strategy = step, learning rate = 5e-4
