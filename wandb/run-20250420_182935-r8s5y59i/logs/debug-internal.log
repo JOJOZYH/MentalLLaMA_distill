@@ -5,3 +5,6 @@
 {"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"stream: started","id":"r8s5y59i"}
 {"time":"2025-04-20T18:29:35.5893645-04:00","level":"INFO","msg":"sender: started","stream_id":"r8s5y59i"}
 {"time":"2025-04-20T18:29:35.7271276-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-20T22:18:05.5917416-04:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2025-04-20T22:18:05.5998204-04:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2025-04-20T22:18:06.0699016-04:00","level":"INFO","msg":"Pausing system monitor"}
