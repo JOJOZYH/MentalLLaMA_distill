@@ -1,0 +1,15 @@
+1. fine_tuned_lora_mental_llama
+
+r=32,alpha=64, dropout = 0.05
+
+
+
+2. fine_tuned_lora_mental_llama_loradropout_0_1
+
+r=32,alpha=64, dropout = 0.1
+
+
+
+3. fine_tuned_lora_mental_llama_loradropout_0_1_v2
+
+r=32,alpha=64, dropout = 0.1, eval strategy = step
