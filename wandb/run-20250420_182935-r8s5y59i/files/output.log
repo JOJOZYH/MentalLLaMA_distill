@@ -1,0 +1,5 @@
+Map: 100%|██████████| 17953/17953 [00:30<00:00, 582.76 examples/s]
+Map: 100%|██████████| 4020/4020 [00:07<00:00, 565.62 examples/s]
+4.49.0
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.

@@ -1,5 +1,5 @@
 {
-  "best_metric": 1.4733455181121826,
+  "best_metric": 1.4702811241149902,
   "best_model_checkpoint": "./lora_mental_llama\\checkpoint-300",
   "epoch": 0.26732011583871684,
   "eval_steps": 100,
@@ -10,26 +10,26 @@
   "log_history": [
     {
       "epoch": 0.08910670527957229,
-      "eval_loss": 1.5081326961517334,
-      "eval_runtime": 635.4893,
-      "eval_samples_per_second": 6.326,
-      "eval_steps_per_second": 1.581,
+      "eval_loss": 1.5018421411514282,
+      "eval_runtime": 621.8435,
+      "eval_samples_per_second": 6.465,
+      "eval_steps_per_second": 1.616,
       "step": 100
     },
     {
       "epoch": 0.17821341055914458,
-      "eval_loss": 1.4837881326675415,
-      "eval_runtime": 637.0387,
-      "eval_samples_per_second": 6.31,
-      "eval_steps_per_second": 1.578,
+      "eval_loss": 1.4786723852157593,
+      "eval_runtime": 637.5716,
+      "eval_samples_per_second": 6.305,
+      "eval_steps_per_second": 1.576,
       "step": 200
     },
     {
       "epoch": 0.26732011583871684,
-      "eval_loss": 1.4733455181121826,
-      "eval_runtime": 621.6568,
-      "eval_samples_per_second": 6.467,
-      "eval_steps_per_second": 1.617,
+      "eval_loss": 1.4702811241149902,
+      "eval_runtime": 615.2443,
+      "eval_samples_per_second": 6.534,
+      "eval_steps_per_second": 1.633,
       "step": 300
     }
   ],
@@ -59,7 +59,7 @@
       "attributes": {}
     }
   },
-  "total_flos": 9.76766361403392e+16,
+  "total_flos": 9.75529410822144e+16,
   "train_batch_size": 4,
   "trial_name": null,
   "trial_params": null

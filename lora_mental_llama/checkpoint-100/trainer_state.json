@@ -1,5 +1,5 @@
 {
-  "best_metric": 1.5081326961517334,
+  "best_metric": 1.5018421411514282,
   "best_model_checkpoint": "./lora_mental_llama\\checkpoint-100",
   "epoch": 0.08910670527957229,
   "eval_steps": 100,
@@ -10,10 +10,10 @@
   "log_history": [
     {
       "epoch": 0.08910670527957229,
-      "eval_loss": 1.5081326961517334,
-      "eval_runtime": 635.4893,
-      "eval_samples_per_second": 6.326,
-      "eval_steps_per_second": 1.581,
+      "eval_loss": 1.5018421411514282,
+      "eval_runtime": 621.8435,
+      "eval_samples_per_second": 6.465,
+      "eval_steps_per_second": 1.616,
       "step": 100
     }
   ],
@@ -43,7 +43,7 @@
       "attributes": {}
     }
   },
-  "total_flos": 3.25588787134464e+16,
+  "total_flos": 3.25176470274048e+16,
   "train_batch_size": 4,
   "trial_name": null,
   "trial_params": null
